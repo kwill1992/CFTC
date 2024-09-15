@@ -15,7 +15,7 @@ library(rvest) #for webscraping; it is also in tidyverse
 # https://oxylabs.io/blog/web-scraping-r
 # https://brightdata.com/blog/how-tos/web-scraping-with-r
 
-# t
+# 15 Sep 2024:  Might not need web-scraping as there is a new file each week.
 
 
 
@@ -70,3 +70,33 @@ library(ggplot2)
 gg <- ggplot(palladium_FUT15_16, aes(x=Report_Date_as_MM_DD_YYYY,y=Comm_Positions_Long_All)) +
   geom_line()
 plot(gg)
+
+
+#### change of direction on 15 Sep 2024:
+# Downloadable text and Excel files for historical data is located here: 
+# https://www.cftc.gov/MarketReports/CommitmentsofTraders/HistoricalCompressed/index.htm
+# Go to section labeled: "Traders in Financial Futures ; Futures Only Reports:."
+
+# Step 1: Choose a product and a year and get a visual of something
+# Read Excel file
+fullFile_FUT15_16 <- read_xls("FUT15_16.xls")
+fullFile_FUT15_16
+#Get just palladium
+palladium_FUT15_16 <- fullFile_FUT15_16 %>% filter(str_detect( Market_and_Exchange_Names, "PALL"))
+
+# Plot long commercial positions vs date
+library(ggplot2)
+gg <- ggplot(palladium_FUT15_16, aes(x=Report_Date_as_MM_DD_YYYY,y=Comm_Positions_Long_All)) +
+  geom_line()
+plot(gg)
+
+# This works
+# Next, add commercial short positions also on same plot
+
+# Add a ratio of long to short
+
+# Add a price of Palladium
+
+# Make interactive
+
+
