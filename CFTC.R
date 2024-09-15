@@ -86,15 +86,60 @@ palladium_FUT15_16 <- fullFile_FUT15_16 %>% filter(str_detect( Market_and_Exchan
 
 # Plot long commercial positions vs date
 library(ggplot2)
-gg <- ggplot(palladium_FUT15_16, aes(x=Report_Date_as_MM_DD_YYYY,y=Comm_Positions_Long_All)) +
+comm_long <- ggplot(palladium_FUT15_16, aes(x=Report_Date_as_MM_DD_YYYY,y=Comm_Positions_Long_All)) +
   geom_line()
-plot(gg)
-
+plot(comm_long)
 # This works
+
+
 # Next, add commercial short positions also on same plot
+comm_long_short <- ggplot(palladium_FUT15_16)  +
+  geom_line(aes(x=Report_Date_as_MM_DD_YYYY,y=Comm_Positions_Long_All)) +
+  geom_line(aes(x=Report_Date_as_MM_DD_YYYY,y=Comm_Positions_Short_All))
+plot(comm_long_short)
+# Works
+
 
 # Add a ratio of long to short
+palladium_FUT15_16 <- palladium_FUT15_16 %>% mutate(short_long_ratio = Comm_Positions_Long_All/Comm_Positions_Short_All)
 
+
+# Add to plot on new axis
+####. This actually may be really hard for some stupid reason!!!
+comm_long_short_ratio <- ggplot(palladium_FUT15_16)  +
+  geom_line(aes(x=Report_Date_as_MM_DD_YYYY,y=Comm_Positions_Long_All)) +
+  geom_line(aes(x=Report_Date_as_MM_DD_YYYY,y=Comm_Positions_Short_All)) +
+  geom_line(aes(x=Report_Date_as_MM_DD_YYYY,y=short_long_ratio)) +
+  scale_y_continuous(sec.axis = sec_axis(~  Comm_Positions_Long_All/Comm_Positions_Short_All * 1.1))
+plot(comm_long_short_ratio)
+
+
+comm_long_short_ratio <- ggplot(palladium_FUT15_16)  +
+  geom_line(aes(x=Report_Date_as_MM_DD_YYYY,y=short_long_ratio))
+plot(comm_long_short_ratio)
+
+par(mfrow = c(2,1))
+plot(comm_long_short)
+plot(comm_long_short_ratio)
+
+https://posit.co/wp-content/uploads/2022/10/data-visualization-1.pdf
+
+https://ggplot2-book.org
+
+https://stackoverflow.com/questions/3099219/ggplot-with-2-y-axes-on-each-side-and-different-scales
+https://finchstudio.io/blog/ggplot-dual-y-axes/
+  https://stackoverflow.com/questions/3099219/ggplot-with-2-y-axes-on-each-side-and-different-scales
+https://r-graph-gallery.com/line-chart-dual-Y-axis-ggplot2.html
+
+https://cran.r-project.org/web/packages/egg/vignettes/Ecosystem.html
+http://www.sthda.com/english/wiki/ggplot2-multiplot-put-multiple-graphs-on-the-same-page-using-ggplot2
+http://ianmadd.github.io/pages/multiplot.html
+http://www.sthda.com/english/articles/24-ggpubr-publication-ready-plots/81-ggplot2-easy-way-to-mix-multiple-graphs-on-the-same-page/
+  http://www.cookbook-r.com/Graphs/Multiple_graphs_on_one_page_(ggplot2)/
+  
+
+
+grid.arrange
 # Add a price of Palladium
 
 # Make interactive
