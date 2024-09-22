@@ -3,6 +3,8 @@ library(tidyverse)
 library(readxl)
 library(stringr)
 library(rvest) #for webscraping; it is also in tidyverse
+library(patchwork)  #for arranging plots
+library(tidyquant)
 
 # webscraping help
 # https://r4ds.hadley.nz/webscraping
@@ -114,6 +116,12 @@ comm_long_short_ratio_2 <- ggplot(palladium_FUT15_16)  +
 plot(comm_long_short_ratio_2)
 
 
+
+
+
+# directions for below
+# https://stackoverflow.com/questions/3099219/ggplot-with-2-y-axes-on-each-side-and-different-scales
+
 ylim.prim <- c(0,30000) #max of comm positions
 ylim.sec <- c(0,1) #ratio
 
@@ -139,10 +147,12 @@ comm_long_short_ratio <- ggplot(palladium_FUT15_16)  +
   geom_line(aes(x=Report_Date_as_MM_DD_YYYY,y=short_long_ratio))
 plot(comm_long_short_ratio)
 
-par(mfrow = c(2,2))
-plot(comm_long_short)
-plot(comm_long_short_ratio)
+# par(mfrow = c(2,2)) only works in base R
+p1 <- plot(comm_long_short)
+p2 <- plot(comm_long_short_ratio)
+p2 / p1
 
+p2 / p1 + plot_layout(heights = c(1,5))
 
 # par is base R and does not work with ggplot2
 # try cowplot
@@ -169,6 +179,16 @@ plot(comm_long_short_ratio)
 
 grid.arrange
 # Add a price of Palladium
+# get Pall price
+options("getSymbols.warning4.0"=FALSE)
+options("getSymbols.yahoo.warning"=FALSE)
+# Downloading Apple price using quantmod
+
+getSymbols("PALL", from = '2015-01-01',
+           to = "2017-03-01",warnings = FALSE,
+           auto.assign = TRUE)
+head(PALL)
+chart_Series(PALL)
 
 # Make interactive
 
