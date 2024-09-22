@@ -190,6 +190,16 @@ getSymbols("PALL", from = '2015-01-01',
 head(PALL)
 chart_Series(PALL)
 
+# or this
+pall_tq <- tq_get('PALL', from = '2015-01-01', to = "2017-01-01", get = "stock.prices" )
+head(pall_tq)
+pall_plot <- ggplot(pall_tq, aes(x=date, y = adjusted)) +
+  geom_line()
+p3 <- pall_plot
+p3
+
+p1 / p2 /p3
+
 # Make interactive
 
 
