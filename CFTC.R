@@ -122,20 +122,17 @@ par(mfrow = c(2,1))
 plot(comm_long_short)
 plot(comm_long_short_ratio)
 
-https://posit.co/wp-content/uploads/2022/10/data-visualization-1.pdf
-
-https://ggplot2-book.org
-
-https://stackoverflow.com/questions/3099219/ggplot-with-2-y-axes-on-each-side-and-different-scales
-https://finchstudio.io/blog/ggplot-dual-y-axes/
-  https://stackoverflow.com/questions/3099219/ggplot-with-2-y-axes-on-each-side-and-different-scales
-https://r-graph-gallery.com/line-chart-dual-Y-axis-ggplot2.html
-
-https://cran.r-project.org/web/packages/egg/vignettes/Ecosystem.html
-http://www.sthda.com/english/wiki/ggplot2-multiplot-put-multiple-graphs-on-the-same-page-using-ggplot2
-http://ianmadd.github.io/pages/multiplot.html
-http://www.sthda.com/english/articles/24-ggpubr-publication-ready-plots/81-ggplot2-easy-way-to-mix-multiple-graphs-on-the-same-page/
-  http://www.cookbook-r.com/Graphs/Multiple_graphs_on_one_page_(ggplot2)/
+# https://posit.co/wp-content/uploads/2022/10/data-visualization-1.pdf
+# https://ggplot2-book.org
+# https://stackoverflow.com/questions/3099219/ggplot-with-2-y-axes-on-each-side-and-different-scales
+# https://finchstudio.io/blog/ggplot-dual-y-axes/
+# https://stackoverflow.com/questions/3099219/ggplot-with-2-y-axes-on-each-side-and-different-scales
+# https://r-graph-gallery.com/line-chart-dual-Y-axis-ggplot2.html
+# https://cran.r-project.org/web/packages/egg/vignettes/Ecosystem.html
+# http://www.sthda.com/english/wiki/ggplot2-multiplot-put-multiple-graphs-on-the-same-page-using-ggplot2
+# http://ianmadd.github.io/pages/multiplot.html
+# http://www.sthda.com/english/articles/24-ggpubr-publication-ready-plots/81-ggplot2-easy-way-to-mix-multiple-graphs-on-the-same-page/
+# http://www.cookbook-r.com/Graphs/Multiple_graphs_on_one_page_(ggplot2)/
   
 
 
