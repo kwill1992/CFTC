@@ -106,21 +106,52 @@ palladium_FUT15_16 <- palladium_FUT15_16 %>% mutate(short_long_ratio = Comm_Posi
 
 # Add to plot on new axis
 ####. This actually may be really hard for some stupid reason!!!
-comm_long_short_ratio <- ggplot(palladium_FUT15_16)  +
+comm_long_short_ratio_2 <- ggplot(palladium_FUT15_16)  +
   geom_line(aes(x=Report_Date_as_MM_DD_YYYY,y=Comm_Positions_Long_All)) +
   geom_line(aes(x=Report_Date_as_MM_DD_YYYY,y=Comm_Positions_Short_All)) +
   geom_line(aes(x=Report_Date_as_MM_DD_YYYY,y=short_long_ratio)) +
   scale_y_continuous(sec.axis = sec_axis(~  Comm_Positions_Long_All/Comm_Positions_Short_All * 1.1))
-plot(comm_long_short_ratio)
+plot(comm_long_short_ratio_2)
+
+
+ylim.prim <- c(0,30000) #max of comm positions
+ylim.sec <- c(0,1) #ratio
+
+b <- diff(ylim.prim)/diff(ylim.sec)
+a <- ylim.prim[1] - b*ylim.sec[1]
+
+comm_long_short_ratio_3 <- ggplot(palladium_FUT15_16, aes(x=Report_Date_as_MM_DD_YYYY,y=Comm_Positions_Long_All))  +
+  geom_line() +
+  geom_line(aes(x=Report_Date_as_MM_DD_YYYY,y=Comm_Positions_Short_All)) +
+  geom_line(aes(y = a + short_long_ratio*b), color = "red") +
+  scale_y_continuous("Comm Positions", sec.axis = sec_axis(~ (. - a)/b, name = "Ratio")) +
+  #scale_x_continuous("Date") +
+  ggtitle("Climatogram for Oslo (1961-1990)")  
+  #geom_line(aes(x=Report_Date_as_MM_DD_YYYY,y=Comm_Positions_Long_All)) +
+  #geom_line(aes(x=Report_Date_as_MM_DD_YYYY,y=Comm_Positions_Short_All)) +
+  #geom_line(aes(x=Report_Date_as_MM_DD_YYYY,y=short_long_ratio)) +
+  #scale_y_continuous(sec.axis = sec_axis(~  Comm_Positions_Long_All/Comm_Positions_Short_All * 1.1))
+plot(comm_long_short_ratio_3)
+
 
 
 comm_long_short_ratio <- ggplot(palladium_FUT15_16)  +
   geom_line(aes(x=Report_Date_as_MM_DD_YYYY,y=short_long_ratio))
 plot(comm_long_short_ratio)
 
-par(mfrow = c(2,1))
+par(mfrow = c(2,2))
 plot(comm_long_short)
 plot(comm_long_short_ratio)
+
+
+# par is base R and does not work with ggplot2
+# try cowplot
+# https://cran.r-project.org/web/packages/cowplot/vignettes/introduction.html
+# or patchwork
+# https://patchwork.data-imaginist.com
+
+
+
 
 # https://posit.co/wp-content/uploads/2022/10/data-visualization-1.pdf
 # https://ggplot2-book.org
