@@ -178,6 +178,17 @@ p2 / p1 + plot_layout(heights = c(1,5))
 
 
 grid.arrange
+
+
+
+# options for getting stock data
+# https://zimanaanalytics.medium.com/how-to-import-stock-market-price-data-into-r-programming-4896ce735f28
+# https://financetrain.com/downloading-stock-data-in-r-using-quantmod
+# https://rpubs.com/FJRubio/YF
+# https://www.r-bloggers.com/2021/05/retrieving-stock-price-using-r/
+# https://www.codingfinance.com/post/2018-03-27-download-price/
+
+
 # Add a price of Palladium
 # get Pall price
 options("getSymbols.warning4.0"=FALSE)
@@ -201,5 +212,11 @@ p3
 p1 / p2 /p3
 
 # Make interactive
+# maybe a Shiny dashboard
 
+
+
+# find maximum and minimum percentage gains over the next 6 to 12 months for:
+# every price
+# or maybe at extremes: less that 0.2 and greater than 0.7
 
