@@ -2,12 +2,57 @@
 title: "CFTC Project"
 author: "Kevin Williams"
 date: "`r Sys.Date()`"
-output: html_document
+output:
+  html_document:
+      code_folding: hide
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+
+# Project Development for plotting and analyzing CFTC data.
+
+### Premise: Develop something that looks like this:
+
+To do: get a picture of old website.  
+To do: get a picture of a current website.  
+xxxxxxx
+
+www.cftc.gov has this kind of data.  Looks like this...  
+To do: show a screenshot of current data from cftc.gov
+
+
+Goal: create something that might look like this but also shows max gains and losses.  Perhaps out to 
+6 months and 12 months???
+
+
+## Step 1: look around www.cftc.gov  
+Go Commitments of Traders here: https://www.cftc.gov/MarketReports/CommitmentsofTraders/index.htm  
+Credit to Steven Jon Kaplan of True Contrarian at https://truecontrarian-sjk.blogspot.com  
+
+
+
+
+## Step 2: Figure out webscraping.  
+
+Here are websites for help with webscraping:
+
+https://r4ds.hadley.nz/webscraping  
+https://preettheman.medium.com/best-web-scraping-packages-for-r-2787979b747  
+https://scrapingant.com/blog/r-web-scraping  
+https://steviep42.github.io/webscraping/book/  
+https://statsandr.com/blog/web-scraping-in-r/  
+https://www.zenrows.com/blog/web-scraping-r  
+https://www.bigbookofr.com/chapters/getting%20cleaning%20and%20wrangling%20data  
+https://oxylabs.io/blog/web-scraping-r  
+https://brightdata.com/blog/how-tos/web-scraping-with-r  
+
+#### 15 Sep 2024:  Might not need web-scraping as there is a new file each week.
+#### Step 2 complete/not required  
+
+
+
 
 ## R Markdown
 
