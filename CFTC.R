@@ -220,14 +220,26 @@ palladium_FUT86_06 <- read_xls("FUT86_06.xls")
 palladium_FUT86_06
 palladium_FUT86_06 <- palladium_FUT86_06 %>% filter(str_detect( Market_and_Exchange_Names, "PALL"))
 palladium_FUT86_06
+# second column "As_of...." is in character form.  Need number to rbind with others
+palladium_FUT86_06 <- palladium_FUT86_06 %>% mutate(As_of_Date_In_Form_YYMMDD = parse_number(As_of_Date_In_Form_YYMMDD))
+palladium_FUT86_06
+
 
 palladium_FUT07_14 <- read_xls("FUT07_14.xls")
 palladium_FUT07_14
 palladium_FUT07_14 <- palladium_FUT07_14 %>% filter(str_detect( Market_and_Exchange_Names, "PALL"))
+# second column "As_of...." is in character form.  Need number to rbind with others
+palladium_FUT07_14 <- palladium_FUT07_14 %>% mutate(As_of_Date_In_Form_YYMMDD = parse_number(As_of_Date_In_Form_YYMMDD))
+palladium_FUT07_14
+
 
 palladium_FUT15_16 <- read_xls("FUT15_16.xls")
 palladium_FUT15_16
 palladium_FUT15_16 <- palladium_FUT15_16 %>% filter(str_detect( Market_and_Exchange_Names, "PALL"))
+palladium_FUT15_16
+# second column "As_of...." is in character form.  Need number to rbind with others
+palladium_FUT15_16 <- palladium_FUT15_16 %>% mutate(As_of_Date_In_Form_YYMMDD = parse_number(As_of_Date_In_Form_YYMMDD))
+palladium_FUT15_16
 
 palladium_FUT17 <- read_xls("FUT17.xls")
 palladium_FUT17
@@ -261,9 +273,37 @@ palladium_FUT24 <- read_xls("FUT24.xls")
 palladium_FUT24
 palladium_FUT24 <- palladium_FUT24 %>% filter(str_detect( Market_and_Exchange_Names, "PALL"))
 
-palladium_all <- bind_rows(palladium_FUT24, palladium_FUT23, palladium_FUT22, palladium_FUT21, palladium_FUT20, palladium_FUT19, palladium_FUT18, palladium_FUT17, palladium_FUT15_16, palladium_FUT07_14)
+palladium_all <- bind_rows(palladium_FUT24, palladium_FUT23, palladium_FUT22, palladium_FUT21, palladium_FUT20, palladium_FUT19, palladium_FUT18, palladium_FUT17, palladium_FUT15_16, palladium_FUT07_14, palladium_FUT86_06)
 # one file has double and one has character for date
+# fixed above
 
+palladium_all <- palladium_all %>% mutate(long_short_ratio = Comm_Positions_Long_All/Comm_Positions_Short_All)
+palladium_all <- palladium_all %>% mutate(short_long_ratio = Comm_Positions_Short_All/Comm_Positions_Long_All)
+
+# print long and short number and long and short ratios
+comm_long_short_all <- ggplot(palladium_all)  +
+  geom_line(aes(x=Report_Date_as_MM_DD_YYYY,y=Comm_Positions_Long_All)) +
+  geom_line(aes(x=Report_Date_as_MM_DD_YYYY,y=Comm_Positions_Short_All))
+plot(comm_long_short_all)
+
+comm_long_short_ratio_all <- ggplot(palladium_all)  +
+  geom_line(aes(x=Report_Date_as_MM_DD_YYYY,y=long_short_ratio))
+plot(comm_long_short_ratio_all)
+
+
+comm_short_long_ratio_all <- ggplot(palladium_all)  +
+  geom_line(aes(x=Report_Date_as_MM_DD_YYYY,y=short_long_ratio))
+plot(comm_short_long_ratio_all)
+
+
+# par(mfrow = c(2,2)) only works in base R
+p1_all <- plot(comm_long_short_all)
+p2_all <- plot(comm_long_short_ratio_all)
+p3_all <- plot(comm_short_long_ratio_all)
+
+p3_all / p2_all / p1_all
+
+p2 / p1 + plot_layout(heights = c(1,5))
 
 # Make interactive
 # maybe a Shiny dashboard
