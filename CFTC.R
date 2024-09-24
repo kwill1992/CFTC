@@ -211,6 +211,60 @@ p3
 
 p1 / p2 /p3
 
+
+
+# GET ALL DATA FROM ALL YEARS FOR PALL
+# work with Palladium
+# Use .csv files
+palladium_FUT86_06 <- read_xls("FUT86_06.xls")
+palladium_FUT86_06
+palladium_FUT86_06 <- palladium_FUT86_06 %>% filter(str_detect( Market_and_Exchange_Names, "PALL"))
+palladium_FUT86_06
+
+palladium_FUT07_14 <- read_xls("FUT07_14.xls")
+palladium_FUT07_14
+palladium_FUT07_14 <- palladium_FUT07_14 %>% filter(str_detect( Market_and_Exchange_Names, "PALL"))
+
+palladium_FUT15_16 <- read_xls("FUT15_16.xls")
+palladium_FUT15_16
+palladium_FUT15_16 <- palladium_FUT15_16 %>% filter(str_detect( Market_and_Exchange_Names, "PALL"))
+
+palladium_FUT17 <- read_xls("FUT17.xls")
+palladium_FUT17
+palladium_FUT17 <- palladium_FUT17 %>% filter(str_detect( Market_and_Exchange_Names, "PALL"))
+
+palladium_FUT18 <- read_xls("FUT18.xls")
+palladium_FUT18
+palladium_FUT18 <- palladium_FUT18 %>% filter(str_detect( Market_and_Exchange_Names, "PALL"))
+
+palladium_FUT19 <- read_xls("FUT19.xls")
+palladium_FUT19
+palladium_FUT19 <- palladium_FUT19 %>% filter(str_detect( Market_and_Exchange_Names, "PALL"))
+
+palladium_FUT20 <- read_xls("FUT20.xls")
+palladium_FUT20
+palladium_FUT20 <- palladium_FUT20 %>% filter(str_detect( Market_and_Exchange_Names, "PALL"))
+
+palladium_FUT21 <- read_xls("FUT21.xls")
+palladium_FUT21
+palladium_FUT21 <- palladium_FUT21 %>% filter(str_detect( Market_and_Exchange_Names, "PALL"))
+
+palladium_FUT22 <- read_xls("FUT22.xls")
+palladium_FUT22
+palladium_FUT22 <- palladium_FUT22 %>% filter(str_detect( Market_and_Exchange_Names, "PALL"))
+
+palladium_FUT23 <- read_xls("FUT23.xls")
+palladium_FUT23
+palladium_FUT23 <- palladium_FUT23 %>% filter(str_detect( Market_and_Exchange_Names, "PALL"))
+
+palladium_FUT24 <- read_xls("FUT24.xls")
+palladium_FUT24
+palladium_FUT24 <- palladium_FUT24 %>% filter(str_detect( Market_and_Exchange_Names, "PALL"))
+
+palladium_all <- bind_rows(palladium_FUT24, palladium_FUT23, palladium_FUT22, palladium_FUT21, palladium_FUT20, palladium_FUT19, palladium_FUT18, palladium_FUT17, palladium_FUT15_16, palladium_FUT07_14)
+# one file has double and one has character for date
+
+
 # Make interactive
 # maybe a Shiny dashboard
 
