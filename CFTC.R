@@ -5,6 +5,7 @@ library(stringr)
 library(rvest) #for webscraping; it is also in tidyverse
 library(patchwork)  #for arranging plots
 library(tidyquant)
+library(plotly)
 
 # webscraping help
 # https://r4ds.hadley.nz/webscraping
@@ -195,14 +196,14 @@ options("getSymbols.warning4.0"=FALSE)
 options("getSymbols.yahoo.warning"=FALSE)
 # Downloading Apple price using quantmod
 
-getSymbols("PALL", from = '2015-01-01',
-           to = "2017-03-01",warnings = FALSE,
+getSymbols("PALL", from = '2000-01-01',
+           to = "2024-09-23",warnings = FALSE,
            auto.assign = TRUE)
 head(PALL)
 chart_Series(PALL)
 
 # or this
-pall_tq <- tq_get('PALL', from = '2015-01-01', to = "2017-01-01", get = "stock.prices" )
+pall_tq <- tq_get('PALL', from = '2000-01-01', to = "2024-01-01", get = "stock.prices" )
 head(pall_tq)
 pall_plot <- ggplot(pall_tq, aes(x=date, y = adjusted)) +
   geom_line()
@@ -305,9 +306,53 @@ p3_all / p2_all / p1_all
 
 p2 / p1 + plot_layout(heights = c(1,5))
 
+# ggplotly(p1_all) / ggplotly(p2_all)
+p1_plotly <- ggplotly(p1_all, x = ~Report)
+p1_plotly <-  p1_plotly %>% layout(
+  xaxis = list(
+    rangeslider = list(type = "Report_Date_as_MM_DD_YYY")))
+p1_plotly
+
+p2_plotly <- ggplotly(p2_all)
+p2_plotly
+
+p1_plotly / p2_plotly
 # Make interactive
 # maybe a Shiny dashboard
 
+
+####. Need to figure out why 15-16 different than all
+####. Need to figure out why 15-16 different than all
+####. Need to figure out why 15-16 different than all
+
+
+# test
+palladium_all  <- palladium_all %>%  filter(As_of_Date_In_Form_YYMMDD > 149999 & As_of_Date_In_Form_YYMMDD < 170102)
+
+# print long and short number and long and short ratios
+comm_long_short_all <- ggplot(palladium_all)  +
+  geom_line(aes(x=Report_Date_as_MM_DD_YYYY,y=Comm_Positions_Long_All)) +
+  geom_line(aes(x=Report_Date_as_MM_DD_YYYY,y=Comm_Positions_Short_All))
+plot(comm_long_short_all)
+
+comm_long_short_ratio_all <- ggplot(palladium_all)  +
+  geom_line(aes(x=Report_Date_as_MM_DD_YYYY,y=long_short_ratio))
+plot(comm_long_short_ratio_all)
+
+
+comm_short_long_ratio_all <- ggplot(palladium_all)  +
+  geom_line(aes(x=Report_Date_as_MM_DD_YYYY,y=short_long_ratio))
+plot(comm_short_long_ratio_all)
+
+
+# par(mfrow = c(2,2)) only works in base R
+p1_all <- plot(comm_long_short_all)
+p2_all <- plot(comm_long_short_ratio_all)
+p3_all <- plot(comm_short_long_ratio_all)
+
+p3_all / p2_all / p1_all
+
+p2 / p1 + plot_layout(heights = c(1,5))
 
 
 # find maximum and minimum percentage gains over the next 6 to 12 months for:
